@@ -18,26 +18,43 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.FlowLayout;
+
 import javax.swing.BoxLayout;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+
+import java.io.File;
+import javax.xml.bind.Unmarshaller;
+
 import java.awt.GridLayout;
+import java.io.File;
 
 public class Window {
 
 	private JFrame frame;
+	JList list;
+	JList list_1;
+	DefaultListModel pcPartsNames1;
 
 	/**
 	 * Launch the application. The main method is the entry point to a Java application. 
@@ -113,12 +130,12 @@ public class Window {
 		pcPartsNames.addElement("RAM");
 		pcPartsNames.addElement("HDD");
 		
-		final JList list = new JList(pcPartsNames);
+		list = new JList(pcPartsNames);
 		list.setVisibleRowCount(3);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setSelectedIndex(0);
 		
-		final DefaultListModel pcPartsNames1 = new DefaultListModel();
+		pcPartsNames1 = new DefaultListModel();
 		
 		JPanel panel = new JPanel();
 		
@@ -130,7 +147,7 @@ public class Window {
 			}
 		});
 		
-		final JList list_1 = new JList(pcPartsNames1);
+		list_1 = new JList(pcPartsNames1);
 		list_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list_1.setSelectedIndex(0);
 		frame.getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
@@ -171,7 +188,27 @@ public class Window {
 	}
 	
 	public void save(){
-		//TODO		
+
+		try {
+			
+			Elements temp = new Elements();
+			temp.setName("jorge");
+			temp.setAge(10);
+			temp.setId(100);			
+
+			File file = new File("C:\\Users\\Jorge\\Downloads\\file.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Elements.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(temp, file);
+			jaxbMarshaller.marshal(temp, System.out);
+
+		      } catch (JAXBException e) {
+			   e.printStackTrace();
+		      }
 	}
 	
     public void load(){
