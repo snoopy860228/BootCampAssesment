@@ -1,41 +1,21 @@
 package com.cooksys.assessment;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "Elements")
 public class Elements {
-
-	String name;
-	int age;
-	int id;
-
-	public String getName() {
-		return name;
-	}
-
+  
 	@XmlElement
-	public void setName(String name) {
-		this.name = name;
+	  List<String> parts;
+	
+	public List<String> getParts(){
+		if(parts == null){
+			parts = new ArrayList<String>();
+		}
+		return this.parts;  
 	}
-
-	public int getAge() {
-		return age;
-	}
-
-	@XmlElement
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	@XmlAttribute
-	public void setId(int id) {
-		this.id = id;
-	}
-
 }
