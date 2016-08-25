@@ -194,7 +194,26 @@ public class Window {
 	}
 	
     public void load(){
-    	//TODO
+    	pcPartsNames1.clear();
+    	
+    	try {
+
+    		File file = new File("C:\\Users\\Jorge\\Documents.file.xml");
+    		JAXBContext jaxbContext = JAXBContext.newInstance(Elements.class);
+
+    		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+    		Elements parts = (Elements) jaxbUnmarshaller.unmarshal(file);
+    		
+    		Object[] list = parts.component.toArray();
+    		
+    		for(Object n : list)
+    		{
+    			pcPartsNames1.addElement((String) n);
+    		}
+
+    	  } catch (JAXBException e) {
+    		e.printStackTrace();
+    	  }
 	}
 
 }
